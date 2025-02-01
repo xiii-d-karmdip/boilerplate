@@ -2,7 +2,7 @@
 /dist
 /node_modules
 package-lock.json
-/src/environment/*
+# /src/environment/*
 
 # Logs
 logs
