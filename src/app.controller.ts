@@ -1,11 +1,23 @@
-import { Controller, Get, Next, Post, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Next,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { NextFunction, Request } from 'express';
 import { TestDTO } from './app.dto';
 import { AppService } from './app.service';
 import { JwtAuthGuard, RoleAuthGuard } from './auth/jwt.guard';
-import { ICustomExpressRequest, ICustomExpressResponse } from './common/middlewares/reqres.middleware';
+import {
+  ICustomExpressRequest,
+  ICustomExpressResponse,
+} from './common/middlewares/reqres.middleware';
 import { MESSAGES } from './common/utils/constants';
+import { environment } from 'environment/environment';
 
 @ApiBearerAuth()
 @Controller()
@@ -21,7 +33,7 @@ export class AppController {
   ) {
     return res.handler.success(
       MESSAGES.TEST.GET_SUCCESS,
-      this.appService.getHello(),
+      this.appService.getHello() + ' ' + environment.jwtSecret,
     );
   }
 
@@ -32,7 +44,6 @@ export class AppController {
     @Res() res: ICustomExpressResponse,
     @Next() next: NextFunction,
   ) {
-    
     return res.handler.success(
       MESSAGES.TEST.POST_SUCCESS,
       `Your message is ${req.body.message}`,

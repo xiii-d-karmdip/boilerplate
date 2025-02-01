@@ -1,7 +1,7 @@
 import { ISwagConfig } from 'common/model/common.model';
 export const environment = {
   production: false,
-  port: 80,
+  port: process.env.PORT || 80,
   swagger: {
     title: 'Project Title',
     description: 'Description',
@@ -9,5 +9,5 @@ export const environment = {
     tag: 'Boilerplate',
     swaggerEndpoint: 'apis', // 'HOST/apis'
   } as ISwagConfig,
-  jwtSecret: 'Your Secret',
+  jwtSecret: process.env.JWT_SECRET,
 };
